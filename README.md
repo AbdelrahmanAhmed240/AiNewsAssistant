@@ -1,57 +1,80 @@
 # AI News Assistant 📰
 
-## 1. Use Case for an Agentic System
-
 An AI-powered news assistant that helps users discover and understand the latest news from around the world.
 
-The agent understands user requests, determines the appropriate type of news search, selects and uses the relevant tool, and presents retrieved news with clear summaries and original source links.
+Users can search for current news using natural-language questions, explore news by specific topics, or find news related to a particular country, city, or region. The agent selects the appropriate search tool and presents relevant results with summaries and original source links.
 
-**Example use cases:**
+## 1. Use Case
 
-- "What's happening in Palestine right now?"
-- "Show me the latest AI news."
-- "What are the latest developments in Egypt?"
+The application is designed for users who want to stay updated on current events and explore news from different subjects and locations.
 
-## 2. LLM and Provider
+Users can ask questions such as:
 
-- **LLM:** GPT-OSS-120B
-- **Provider:** Groq API
+- What's happening in France right now?
+- Show me the latest AI news.
+- What are the latest developments in Egypt?
+- Find recent news about football.
 
-GPT-OSS-120B will handle natural-language understanding, tool selection, and news summarization. Groq provides the model inference through its API.
+The agent understands the request, searches for relevant news, and summarizes the retrieved information.
 
-## 3. Identified Tools
+## 2. LLM & Provider
 
-The agent will have access to three main tools:
+- **Provider:** GroqCloud
+- **Model:** GPT-OSS 120B
+- **Model ID:** `openai/gpt-oss-120b`
 
-1. **`live_news_search`**
+**What they do:**
 
-   - Searches for current news using natural-language queries or questions.
+- **GroqCloud:** Provides API access to run the language model.
+- **GPT-OSS 120B:** Understands user requests, selects tools, and summarizes news.
 
-2. **`news_by_topics`**
+## 3. Agent Tools
 
-   - Searches for recent news about specific subjects, such as technology, politics, sports, and business.
+The agent has access to three main tools.
 
-3. **`news_by_location`**
+**Tool 1: `live_news_search`**
 
-   - Searches for news related to a specific country, city, or geographical region.
+- **Description:** Searches for current news using natural-language queries or questions.
+- **Input:** `query` (string).
+- **Output:** Relevant news articles and search results.
+
+**Tool 2: `news_by_topics`**
+
+- **Description:** Searches for recent news about specific subjects, such as politics, technology, sports, and business.
+- **Input:** `topic` (string).
+- **Output:** News articles related to the requested topic.
+
+**Tool 3: `news_by_location`**
+
+- **Description:** Searches for news related to a specific country, city, or geographical region.
+- **Input:** `location` (string).
+- **Output:** News articles related to the requested location.
 
 ## 4. System Prompt
 
-You are an AI News Assistant. Your objective is to help users discover and understand the latest news from around the world.
+The system prompt defines the agent's role, available tools, and behavior.
 
-You have access to three tools:
+```text
+You are an AI News Assistant. Your objective is to help
+users discover and understand the latest news worldwide.
 
-- `live_news_search`: Search for current news using natural-language queries or questions.
-- `news_by_topics`: Search for news about specific subjects.
-- `news_by_location`: Search for news related to a country, city, or region.
+Available tools:
+- live_news_search
+- news_by_topics
+- news_by_location
 
-**Instructions:**
+Instructions:
+1. Understand the user's request before selecting a tool.
+2. Choose the most appropriate tool for the request.
+3. Use fresh search results for current news.
+4. Summarize retrieved news clearly and accurately.
+5. Include publication dates and original source links when available.
+6. Never fabricate news, facts, or sources.
+7. Distinguish confirmed information from unverified claims.
+8. Mention conflicting reports when relevant.
+9. If information is unavailable, communicate this honestly.
 
-- Understand the user's intent and select the most appropriate tool.
-- Use fresh search results when answering questions about current events.
-- Never fabricate news, facts, or sources.
-- Include publication dates and original source links whenever available.
-- Distinguish confirmed information from unverified claims.
-- Be neutral, objective, and professional.
-- Present news in a clear, concise, and organized format.
-- If information is unavailable, communicate this honestly rather than guessing.
+Tone:
+Be neutral, objective, professional, and concise.
+Avoid sensationalism and political bias.
+```
